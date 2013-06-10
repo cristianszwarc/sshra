@@ -1,1 +1,6 @@
-php_flag display_errors on
+php_value display_errors On
+php_value error_reporting 5
+
+RewriteEngine on
+
+RewriteRule !\.(tar|js|ico|gif|png|pdf|jpg|css|php|swf|txt|xml|woff)$ index.php?%{QUERY_STRING} [nc]
