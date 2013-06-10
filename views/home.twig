@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+        <style>
+            table form { margin-bottom: 0; }
+            form ul { margin-left: 0; list-style: none; }
+            .error { color: red; font-style: italic; }
+            body { padding-top: 20px; }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+            
+            
+
+<h1>Login</h1>
+
+<div id="login" class="login">
+
+        <form method="POST" action="{{ path('doLogin') }}" accept-charset="UTF-8">             
+		
+		{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+
+            <div class="control-group">
+
+                <label for="domainl">Domain</label>                <div class="controls">
+
+                    <input name="domain" type="text" id="domain" value="{{ last_domain }}">                </div>
+
+            </div>
+
+	    <div class="control-group">
+
+                <label for="username">User</label>                <div class="controls">
+
+                    <input name="username" type="text" id="username" value="{{ last_username }}">                </div>
+
+            </div>
+
+ 
+
+            <div class="control-group">
+
+                <label for="password">Password</label>                <div class="controls">
+
+                    <input name="password" type="password" value="" id="password">                </div>
+
+            </div>
+
+ 
+
+            <div class="form-actions">
+
+                <input class="btn btn-primary" type="submit" value="Login">            </div>
+
+ 
+
+        </form>    </div>
+
+
+
+        </div>
+
+    </body>
+
+</html>

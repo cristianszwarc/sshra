@@ -1,0 +1,4 @@
+users<br />
+{% for user in datos %}
+    {{ loop.index }} - {{ user.email }}<br />
+{% endfor %}
