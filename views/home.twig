@@ -10,61 +10,38 @@
             body { padding-top: 20px; }
         </style>
     </head>
-
-    <body>
-
-        <div class="container">
-            
-            
-
-<h1>Login</h1>
-
-<div id="login" class="login">
-
-        <form method="POST" action="{{ path('doLogin') }}" accept-charset="UTF-8">             
+	<body>
+		<div class="container">
+		<h1>Login</h1>
+		<div id="login" class="login">
+			<form method="POST" class="form" action="{{ path('doLogin') }}" accept-charset="UTF-8">             
 		
-		{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+				{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
 
-            <div class="control-group">
-
-                <label for="domainl">Domain</label>                <div class="controls">
-
-                    <input name="domain" type="text" id="domain" value="{{ last_domain }}">                </div>
-
-            </div>
-
-	    <div class="control-group">
-
-                <label for="username">User</label>                <div class="controls">
-
-                    <input name="username" type="text" id="username" value="{{ last_username }}">                </div>
-
-            </div>
-
- 
-
-            <div class="control-group">
-
-                <label for="password">Password</label>                <div class="controls">
-
-                    <input name="password" type="password" value="" id="password">                </div>
-
-            </div>
-
- 
-
-            <div class="form-actions">
-
-                <input class="btn btn-primary" type="submit" value="Login">            </div>
-
- 
-
-        </form>    </div>
-
-
-
+				<div class="control-group">
+					<label for="domain">Domain</label>
+					<div class="controls">
+						<input name="domain" type="text" id="domain" value="{{ last_domain }}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="username">User</label>
+					<div class="controls">
+						<input name="username" type="text" id="username" value="{{ last_username }}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="password">Password</label>
+					<div class="controls">
+						<input name="password" type="password" value="" id="password">
+					</div>
+				</div>
+				<div class="form-actions">
+					<input class="btn btn-primary" type="submit" value="Login">
+                </div>
+				</form>    
+			</div>
+			<a href="https://github.com/cristianszwarc/sshra">Source at GitHub</a>.
         </div>
-
     </body>
-
 </html>

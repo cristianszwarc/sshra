@@ -1,0 +1,11 @@
+{% extends "main.twig" %}
+
+{% block content %}
+	<h1>Scripts</h1>
+	{% for groupName, commands in grouped %}
+		<h2>{{ groupName }}</h2>
+		{% for commandName, command in commands %}
+			<a href="{{ path('scripts.run', {'command':command}) }}">{{ commandName }}</a><br />
+		{% endfor %}
+	{% endfor %}
+{% endblock %}

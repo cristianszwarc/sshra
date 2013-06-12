@@ -1,0 +1,6 @@
+config:
+    ram:
+    scripts:
+        Scripts: "/var/www/vhosts/*/git/*.sh"
+        tlv Scripts: "/home/tlvserver/*.sh"
+        Move Pictures: "/MOVE_PICTURES"

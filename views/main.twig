@@ -12,19 +12,31 @@
     </head>
 
     <body>
-	<div id="footer" class="container">
-		{% for modulo in modulos %}
-			<a href="{{ path(modulo.name) }}">{{ modulo.title }}</a>
-		{% endfor %}
-		<a href="{{ path('logout') }}">Logout</a>
-	</div>
-        <div class="container">
-	{% block content %}{% endblock %}
-	</div>
-        <div id="footer" class="container">
-            {% block footer %}
-                <a href="https://github.com/cristianszwarc/sshra">Fork me!</a>.
-            {% endblock %}
-        </div>
+		<div class="container navbar">
+		  <div class="navbar-inner">
+		    <a class="brand" href="#">SSH Remote Actions</a>
+		    
+			<ul class="nav">
+				{% for modulo in modulos %}
+				<li class="{{ modulo.active }}">
+					<a href="{{ path(modulo.name) }}">{{ modulo.title }}</a>
+				</li>
+				{% endfor %}
+				<li>
+					<a href="{{ path('logout') }}">Logout</a>
+				</li>
+			</ul>
+		  </div>
+		</div>
+	
+	    <div class="container">
+		{% block content %}{% endblock %}
+		</div>
+	    <div id="footer" class="container">
+	        {% block footer %}
+	            <hr />
+	            <a href="https://github.com/cristianszwarc/sshra">Source at GitHub</a>
+	        {% endblock %}
+	    </div>
     </body>
 </html>

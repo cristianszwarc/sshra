@@ -23,50 +23,50 @@ ErrorHandler::register();
 ExceptionHandler::register();
 $app['debug'] = true;
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-	'twig.path' => __DIR__.'/../views',
-	));
+$app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path' => __DIR__.'/../views'));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/config.yml"));
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
+ 
+$app['ssh'] = new Modules\MySSH($app);
 
-$app['ssh']=NULL;
 
 /* if not logged and is not home  */
-$app->before(function(Request $request) use ($app){
-    if ( !$app['ssh'] && $app['url_generator']->generate('home') != $request->getRequestUri() )
+$app->before(function(Request $request) use ($app)
+{
+    if ( !$app['ssh']->ready && $app['url_generator']->generate('home') != $request->getRequestUri() )
                 return $app->redirect($app['url_generator']->generate('home'));
 });
 
 /* if is logged connect and load modules */
-if($app['session']->get('sshEnabled') ) {
-    $app['ssh'] = new Modules\MySSH($app['session']->get('domain'), $app['session']->get('username'), $app['session']->get('password'));
-    if($app['ssh']){
+if( $app['ssh']->ready  ) 
+{
+    if($app['ssh']->reconect())
+    {
 	    $modulos=array();
+		$modulos['dashboard']=new Modules\Dashboard($app);
+        $app->mount('/dashboard', $modulos['dashboard']);
 
-            $modulos['dashboard']=new Modules\Dashboard($app);
-            $app->mount('/dashboard', $modulos['dashboard']);
-
-	    $modulos['ram']=new Modules\Ram($app);
-            $app->mount('/ram', $modulos['ram']);
-
-	    $modulos['disk']=new Modules\Disk($app);
-	    $app->mount('/disk', $modulos['disk']);
-
-    	    $app["twig"]->addGlobal("modulos", $modulos);
+		foreach ($app['config'] as $moduleName => $moduleConfig )
+		{
+				$objName="Modules\\$moduleName";
+				$modulos[$moduleName]=new $objName($app, $moduleConfig );
+				$app->mount('/'.$moduleName, $modulos[$moduleName]);
+		}
+	    	
+    	$app["twig"]->addGlobal("modulos", $modulos);
     } else {
-	$app['session']->set('loginerror', "Error on reconect");
+		$app['session']->set('loginerror', "Error on reconect");
     }
 }
+
 
 /* basic routes */
 
 /* home */
 $app->get('/', function() use ($app) {
-    /* if logged then go dashboard */
-    if($app['session']->get('sshEnabled')){
-	return $app->redirect($app['url_generator']->generate('dashboard'));
-    }
+    if($app['ssh']->ready) return $app->redirect($app['url_generator']->generate('dashboard'));
 
     $error = $app['session']->get('loginerror');
     $app['session']->set('loginerror', "");
@@ -74,42 +74,36 @@ $app->get('/', function() use ($app) {
     return $app['twig']->render('home.twig', array(
         'error'         => $error,
         'last_username' => $app['session']->get('username'),
-	'last_domain' => $app['session']->get('domain'),
+		'last_domain' => $app['session']->get('domain'),
     ));
+    
 })->bind('home');
 
 
 /* login attempt */
 $app->post('/', function(Request $request) use ($app) {
-	$domain = $request->get('domain');
-	$username = $request->get('username');
-	$password = $request->get('password');
-	$app['session']->set('username', $username);
-	$app['session']->set('password', $password);
-	$app['session']->set('domain', $domain);
 
-	$app['session']->set('sshEnabled', false);
-
+	$app['session']->set('domain', $request->get('domain'));
+	$app['session']->set('username', $request->get('username'));
+	
 	/*check user, pass and ssh connection */
-    	if ($username && $password) {
-		$app['ssh'] = new Modules\MySSH($domain, $username, $password);
-		if ($app['ssh']) {
-			$app['session']->set('sshEnabled', true);
-			return $app->redirect($app['url_generator']->generate('home'));
-		}
-	}
-
+	if ($app['ssh']->login($request->get('domain'), $request->get('username'), $request->get('password'))) 
+		return $app->redirect($app['url_generator']->generate('home'));
+	
 	$app['session']->set('loginerror', "connection error");
 	return $app->redirect($app['url_generator']->generate('home'));
+
 })->bind('doLogin');
 
-/* logout */
-$app->get('/logout', function() use ($app) {
-    $app['session']->set('sshEnabled', false);
-    $app['session']->set('password', false);
+$app->get('/logout', function() use ($app) 
+{
+    $app['ssh']->disconnect();
     $app['session']->clear();
     return $app->redirect($app['url_generator']->generate('home'));
+    
 })->bind('logout');
+
+
 
 
 $app->run();

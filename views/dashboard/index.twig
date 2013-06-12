@@ -3,12 +3,13 @@
 {% block content %}
 <h1>Dashboard</h1>
 
-                {% for modulo in modulos %}
-		   {% if modulo.dashboard %}
-                        <a href="{{ path(modulo.name) }}">{{ modulo.title }}</a><br />
-			{{ modulo.dashboard }}<br />
-		   {% endif %}
-                {% endfor %}
-
+	{% for modulo in modulos %}
+		{% if modulo.dashboard %}
+			<div class="well">
+				<a href="{{ path(modulo.name) }}">{{ modulo.title }}</a><br />
+				{{ modulo.dashboard }}<br />
+			</div>
+		{% endif %}
+	{% endfor %}
 
 {% endblock %}

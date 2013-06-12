@@ -3,7 +3,9 @@
         "silex/silex": "~1.0",
 	"twig/twig": "1.*",
 	"phpseclib/phpseclib": "*",
-	"symfony/twig-bridge": "2.1.*" 
+	"symfony/twig-bridge": "2.1.*",
+	"igorw/config-service-provider": "*",
+    "symfony/yaml": "~2.1" 
     },
     "autoload": {
         "psr-0": {
