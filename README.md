@@ -14,7 +14,7 @@ The login is made trying to open a connection to the remote host, but you are fr
 ![Scripts Module](https://raw.github.com/cristianszwarc/sshra/master/screenshots/04.png)
 
 *Scritps module - Run*
-![Scripts Module - Run](https://raw.github.com/cristianszwarc/sshra/master/screenshots/04.png)
+![Scripts Module - Run](https://raw.github.com/cristianszwarc/sshra/master/screenshots/06.png)
 
 
 ##Installation##
