@@ -1,8 +1,8 @@
 
 #SSH Remote Actions
-It is a toolbox where you can add modules to run shell commands through SSH.
+This is a toolbox where you can add modules to run shell commands through SSH.
 
-It Is made using **Silex & phpseclib**, phpseclib can easily be changed by PHP SSH2.
+This is made using **Silex & phpseclib**, phpseclib can easily be changed by PHP SSH2.
 
 The login is made trying to open a connection to the remote host, but you are free to make your own auth method and use a secured SSH public key.
 
@@ -14,7 +14,8 @@ git clone git://github.com/cristianszwarc/sshra.git
 cd sshra
 composer install
 ```
-*be sure of only make public the web folder. You may run this only on localhost to prevent your non encrypted password go over the net*
+*Be sure of only make public the web folder. 
+You may run this on your localhost to prevent enter your password in a form over a non encrypted web page.*
 
 ##Configuration File##
 The ```config/config.yml``` file can keep module configurations, the options will be passed to each module
@@ -60,3 +61,5 @@ A simple example of the use of the **Dashboard**, each module can run commands a
 
 ##Licence##
 Use without restrictions, learn something and give a feedback
+
+http://cristianszwarc.com.ar/
