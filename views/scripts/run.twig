@@ -3,12 +3,17 @@
 {% block content %}
 	<h1>Scripts</h1>
 	
-	Command: {{ commandDetail }}<br />
-	{% if result %}<pre>{{ result }}</pre>{% endif %}
+	<strong>Command:</strong>
+	<pre>{{ commandDetail }}</pre>
+
+	{% if result %}
+		<strong>Result:</strong>
+		<pre>{{ result }}</pre>
+	{% endif %}
 	
 	<form method="POST" action="{{ path('scripts.run', {'command':command}) }}" accept-charset="UTF-8">
 		<div class="control-group">
-			<label for="parameter">Parameters</label>
+			<label for="parameter"><strong>Parameters</strong></label>
 			<div class="controls">
 				<input name="parameter" type="text" id="domain" value="{{ last_parameter }}">
 			</div>

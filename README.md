@@ -8,6 +8,15 @@ The login is made trying to open a connection to the remote host, but you are fr
 
 *The purpose of this code is learning some Silex and Composer autoload by doing something useful at the same time.*
 
+##Screenshots##
+
+*Scritps module*
+![Scripts Module](https://raw.github.com/cristianszwarc/sshra/master/screenshots/04.png)
+
+*Scritps module - Run*
+![Scripts Module - Run](https://raw.github.com/cristianszwarc/sshra/master/screenshots/04.png)
+
+
 ##Installation##
 ```bash
 git clone git://github.com/cristianszwarc/sshra.git
