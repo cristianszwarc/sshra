@@ -70,7 +70,6 @@ This module generates the home page where you can get a review or alerts coming 
 ### Ram ###
 A simple example of the use of the **Dashboard**, each module can run commands at login and save a preview or alert on the Dashboard area.
 
-##Licence##
+## Licence ##
 Use without restrictions, learn something and give a feedback
 
-http://cristianszwarc.com.ar/
